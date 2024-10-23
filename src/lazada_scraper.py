@@ -149,6 +149,21 @@ def run_page_scraper(item: str, proxy_settings: dict, pagination: int | None = 1
     return scrape_data
 
 
+class LazadaScraper:
+    def __init__(self, search_item: str, proxy_settings: dict | None) -> None:
+        """Initialize the object with search of interest and 
+           proxy settings dictionary with keys of proxy_url, 
+           proxy_user, and proxy_passw"""
+        
+        self.search_item = search_item
+        self.proxy_user = proxy_settings.get('proxy_user')
+        self.proxy_passw = proxy_settings.get('proxy_passw')
+        self.proxy_url = proxy_settings.get('proxy_url')
+    
+    
+
+
+
 
 
 proxy_settings = {'proxy_url': get_proxy_endpoint, 'proxy_user': PROXY_USER, 'proxy_passw': PROXY_PASS}
