@@ -1,5 +1,7 @@
-from random import choice
+from random import choice, random
+from time import sleep
 from scraper import USER_AGENTS
+from constants import *
 
 def _get_user_agent():
     user_agent = choice(USER_AGENTS)
@@ -22,3 +24,9 @@ def _get_lazada_page_headers(user_agent):
         "sec-fetch-site": "same-origin",
         "user-agent": _get_user_agent()
     }
+
+def _random_delay():
+    if random.random() > 0.5:
+        sleep(abs(random.gauss(DELAY_MEAN, DELAY_SD)) * random.uniform(0.5,1.5))
+    else:
+        sleep(abs(random.gauss(DELAY_MEAN, DELAY_SD)) + random.random())

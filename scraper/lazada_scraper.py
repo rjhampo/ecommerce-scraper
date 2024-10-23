@@ -1,4 +1,4 @@
-import random, os, dotenv, json, time, logging, warnings
+import os, dotenv, json, time, logging, warnings
 from playwright.sync_api import sync_playwright
 from playwright_stealth import Stealth
 from curl_cffi import requests
@@ -11,39 +11,8 @@ logger = logging.getLogger(__name__)
 logging.basicConfig()
 logger.setLevel(logging.DEBUG)
 dotenv.load_dotenv()
-with open('user_agents.json', 'r') as agents:
-    agents_list = json.loads(agents.read())
-with open(os.getenv('PROXY'), 'r') as input:
-    PROXIES = [proxy.strip() for proxy in input]
 
 
-def random_delay():
-    if random.random() > 0.5:
-        time.sleep(abs(random.gauss(DELAY_MEAN, DELAY_SD)) * random.uniform(0.5,1.5))
-    else:
-        time.sleep(abs(random.gauss(DELAY_MEAN, DELAY_SD)) + random.random())
-
-def rotate_header():
-    user_agent = random.choice(agents_list)
-    logger.debug(f'Getting new header with agent {user_agent}')
-    return {
-        "accept": "application/json, text/plain, */*",
-        "accept-encoding": "gzip, deflate, br, zstd",
-        "accept-language": "en-US,en;q=0.9,id;q=0.8",
-        "dnt": "1",
-        "priority": "u=1, i",
-        "referer": "https://www.lazada.com.ph/",
-        "sec-ch-ua": "\"Google Chrome\";v=\"129\", \"Not=A?Brand\";v=\"8\", \"Chromium\";v=\"129\"",
-        "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": "\"Windows\"",
-        "sec-fetch-dest": "empty",
-        "sec-fetch-mode": "cors",
-        "sec-fetch-site": "same-origin",
-        "user-agent": user_agent
-    }
-
-def get_proxy_endpoint():
-    yield from PROXIES
 
 def get_cookies_headers(url: str, proxy: str, user: str, passw: str) -> list:
     logger.debug(f'Getting browser data from {url} through proxy {proxy}')
