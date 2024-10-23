@@ -3,3 +3,4 @@ proxies.txt
 .ipynb_checkpoints
 .vscode
 .temp_files
+tests/__pycache__
