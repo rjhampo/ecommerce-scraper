@@ -3,20 +3,8 @@ from playwright.sync_api import sync_playwright
 from playwright_stealth import Stealth
 from curl_cffi import requests
 from requests import HTTPError
+from .constants import *
 
-
-# Steps
-# 1. create loop to get x number links to products (goal: 1000)
-# 2. create loop to scrape every product
-#       a. identify details to obtain
-# 3. store in file db
-#       a. identify schema
-
-DELAY_MEAN = 2
-DELAY_SD = 0.1
-DEFAULT_TIMEOUT = 60000
-PROXY_USER = os.getenv('PROXY_USER')
-PROXY_PASS = os.getenv('PROXY_PASS')
 
 warnings.filterwarnings('ignore', r'Make sure*', RuntimeWarning, module='curl_cffi')
 logger = logging.getLogger(__name__)
@@ -159,12 +147,3 @@ class LazadaScraper:
         self.proxy_user = proxy_settings.get('proxy_user')
         self.proxy_passw = proxy_settings.get('proxy_passw')
         self.proxy_url = proxy_settings.get('proxy_url')
-    
-    
-
-
-
-
-
-proxy_settings = {'proxy_url': get_proxy_endpoint, 'proxy_user': PROXY_USER, 'proxy_passw': PROXY_PASS}
-run_page_scraper('face cleanser', proxy_settings)
