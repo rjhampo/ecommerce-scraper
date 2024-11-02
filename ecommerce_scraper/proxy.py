@@ -3,7 +3,7 @@ from ecommerce_scraper.exceptions import StaleProxy
 
 
 class Proxy:
-    def __init__(self, proxy: Union[str, Iterator, Iterable, None] = None, 
+    def __init__(self, proxy: Union[str, Iterator[str], Iterable[str], None] = None, 
                  proxy_user: str | None = None, proxy_passw: str | None = None) -> None:
         match proxy:
             case Iterator():
@@ -21,10 +21,13 @@ class Proxy:
         
         self.proxy_user = proxy_user
         self.proxy_passw = proxy_passw
+        if self.proxy_url: self.current_proxy = self.proxy_url
+        else: self.current_proxy = None
         self.is_fresh = True
     
-    def get_proxy(self):
+    def get_proxy(self) -> str:
         if not self.is_fresh and self.proxy_url:
-                raise StaleProxy
-        if self.proxy_url: return self.proxy_url
-        else: yield self.proxy_factory
+            raise StaleProxy
+        if self.proxy_url: self.current_proxy = self.proxy_url
+        else: self.current_proxy = next(self.proxy_factory)
+        return self.current_proxy
