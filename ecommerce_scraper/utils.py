@@ -1,6 +1,6 @@
 from random import choice, random
 from time import sleep
-from scraper import USER_AGENTS
+from ecommerce_scraper import USER_AGENTS
 from constants import *
 
 def _get_user_agent():

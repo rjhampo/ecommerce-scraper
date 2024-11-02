@@ -6,14 +6,6 @@ from requests import HTTPError
 from .constants import *
 
 
-warnings.filterwarnings('ignore', r'Make sure*', RuntimeWarning, module='curl_cffi')
-logger = logging.getLogger(__name__)
-logging.basicConfig()
-logger.setLevel(logging.DEBUG)
-dotenv.load_dotenv()
-
-
-
 def get_cookies_headers(url: str, proxy: str, user: str, passw: str) -> list:
     logger.debug(f'Getting browser data from {url} through proxy {proxy}')
     with Stealth().use_sync(sync_playwright()) as p:
