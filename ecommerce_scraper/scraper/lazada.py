@@ -3,7 +3,7 @@ from playwright.sync_api import sync_playwright
 from playwright_stealth import Stealth
 from curl_cffi import requests
 from requests import HTTPError
-from .constants import *
+from ..constants import *
 
 
 def get_cookies_headers(url: str, proxy: str, user: str, passw: str) -> list:
