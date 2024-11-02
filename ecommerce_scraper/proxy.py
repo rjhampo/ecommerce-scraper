@@ -1,4 +1,5 @@
 from typing import Iterable, Iterator, Union
+from ecommerce_scraper.exceptions import StaleProxy
 
 
 class Proxy:
@@ -17,8 +18,13 @@ class Proxy:
             case _:
                 self.proxy_url = None
                 self.proxy_factory = None
+        
         self.proxy_user = proxy_user
         self.proxy_passw = proxy_passw
+        self.is_fresh = True
     
-    def _get_proxy_endpoint(self):
-        yield self.proxy_factory
+    def get_proxy(self):
+        if not self.is_fresh and self.proxy_url:
+                raise StaleProxy
+        if self.proxy_url: return self.proxy_url
+        else: yield self.proxy_factory
