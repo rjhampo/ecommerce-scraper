@@ -1,8 +1,13 @@
+from ecommerce_scraper.proxy import Proxy
 
 
 class BaseScraper:
-    def __init__(self):
-        pass
+    def __init__(self, proxy_config: dict | None):
+        """Initialize scraper with proxy_config dict having at least 
+           one of the following items: proxy (which either contains a url string or 
+           a generator), proxy_user, and proxy_passw"""
+        self.proxy_config = Proxy(proxy=proxy_config.get('proxy'), proxy_user=proxy_config.get('proxy_user'),
+                                  proxy_passw=proxy_config.get('proxy_passw'))
 
     def _get_browser_info(self):
         """Gets the necessary cookies and headers to 
