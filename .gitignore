@@ -4,4 +4,4 @@ proxies.txt
 .vscode
 .temp_files
 .pytest_cache
-tests/__pycache__
+**/__pycache__
