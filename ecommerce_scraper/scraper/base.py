@@ -5,6 +5,11 @@ from time import sleep
 import random
 
 
+class ProxyDict(TypedDict):
+    proxy: str | Iterable | Iterator
+    proxy_user: str | None = None
+    proxy_passw: str | None = None
+
 class BaseScraper:
     def __init__(self, home_url: str, search_query: str, proxy_config: dict | None, output_file: str | None = 'output.txt',
                  user_agents: list[str] | None = USER_AGENTS, default_timeout: float | None = DEFAULT_TIMEOUT,
